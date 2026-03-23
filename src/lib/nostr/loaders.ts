@@ -1,0 +1,73 @@
+import { filter } from 'rxjs';
+import type { NostrEvent } from 'nostr-tools';
+import { eventStore, pool } from './store';
+import { BOOTSTRAP_RELAYS } from './bootstrap';
+
+export interface NsiteEntry {
+	slug: string;
+	createdAt: number;
+	title?: string;
+	description?: string;
+}
+
+function addToStore(msg: NostrEvent | 'EOSE') {
+	if (msg !== 'EOSE') eventStore.add(msg);
+}
+
+function extractRelays(event: NostrEvent): string[] {
+	return event.tags
+		.filter((t) => t[0] === 'r' && t[1]?.startsWith('wss://'))
+		.map((t) => t[1].trim());
+}
+
+export function subscribe(pubkey: string) {
+	// Query bootstrap relays for everything upfront
+	const bootstrapSub = pool
+		.req(BOOTSTRAP_RELAYS, [
+			{ kinds: [10002], authors: [pubkey], limit: 5 },
+			{ kinds: [0], authors: [pubkey], limit: 1 },
+			{ kinds: [35128], authors: [pubkey] }
+		])
+		.subscribe(addToStore);
+
+	// When relay list events arrive, also query the user's own relays
+	const relayDiscoverySub = eventStore
+		.filters({ kinds: [10002], authors: [pubkey] })
+		.pipe(filter((e): e is NostrEvent => !!e))
+		.subscribe((event) => {
+			const userRelays = extractRelays(event).filter((r) => !BOOTSTRAP_RELAYS.includes(r));
+			if (userRelays.length > 0) {
+				pool
+					.req(userRelays, [
+						{ kinds: [0], authors: [pubkey], limit: 1 },
+						{ kinds: [35128], authors: [pubkey] }
+					])
+					.subscribe(addToStore);
+			}
+		});
+
+	return () => {
+		bootstrapSub.unsubscribe();
+		relayDiscoverySub.unsubscribe();
+	};
+}
+
+export function getNsitesFromStore(pubkey: string): NsiteEntry[] {
+	const events = eventStore.getByFilters({ kinds: [35128], authors: [pubkey] });
+	const nsites: NsiteEntry[] = [];
+	const seen = new Set<string>();
+	const sorted = events.sort((a, b) => b.created_at - a.created_at);
+	for (const event of sorted) {
+		const dTag = event.tags.find((t) => t[0] === 'd')?.[1];
+		if (dTag && !seen.has(dTag)) {
+			seen.add(dTag);
+			nsites.push({
+				slug: dTag,
+				createdAt: event.created_at,
+				title: event.tags.find((t) => t[0] === 'title')?.[1],
+				description: event.tags.find((t) => t[0] === 'description')?.[1]
+			});
+		}
+	}
+	return nsites;
+}

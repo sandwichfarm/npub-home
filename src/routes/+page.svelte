@@ -1,0 +1,68 @@
+<script lang="ts">
+	import { onMount } from 'svelte';
+	import { parseNpubFromHostname } from '$lib/nostr/bootstrap';
+	import { subscribe, getNsitesFromStore, type NsiteEntry } from '$lib/nostr/loaders';
+	import { eventStore } from '$lib/nostr/store';
+	import type { ProfileContent } from 'applesauce-core/helpers/profile';
+	import ProfileCard from '$lib/components/ProfileCard.svelte';
+	import NsiteList from '$lib/components/NsiteList.svelte';
+	import ErrorMessage from '$lib/components/ErrorMessage.svelte';
+
+	let error = $state<string | null>(null);
+	let profile = $state<ProfileContent | undefined>(undefined);
+	let nsites = $state<NsiteEntry[]>([]);
+	let npub = $state('');
+	let host = $state('');
+	let pubkey = $state('');
+
+	onMount(() => {
+		host = window.location.host;
+		const parsed = parseNpubFromHostname(window.location.hostname);
+
+		if (!parsed) {
+			error = 'No npub found in hostname. Deploy this site to an nsite domain.';
+			return;
+		}
+
+		npub = parsed.npub;
+		pubkey = parsed.pubkey;
+
+		// Fire subscriptions — events stream into eventStore
+		const unsubscribe = subscribe(parsed.pubkey);
+
+		// Reactively read profile from eventStore
+		const profileSub = eventStore.profile(parsed.pubkey).subscribe((p) => {
+			profile = p;
+		});
+
+		// Reactively read nsites from eventStore as events arrive
+		const nsiteSub = eventStore
+			.filters({ kinds: [35128], authors: [parsed.pubkey] })
+			.subscribe(() => {
+				nsites = getNsitesFromStore(parsed.pubkey);
+			});
+
+		return () => {
+			unsubscribe();
+			profileSub.unsubscribe();
+			nsiteSub.unsubscribe();
+		};
+	});
+</script>
+
+<svelte:head>
+	<title>{profile?.display_name || profile?.name || 'nsite'}</title>
+</svelte:head>
+
+<div class="min-h-screen bg-neutral-900 text-white">
+	<div class="mx-auto max-w-2xl py-8">
+		{#if error && !profile}
+			<ErrorMessage message={error} />
+		{:else}
+			<div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
+				<ProfileCard {profile} {npub} />
+				<NsiteList {nsites} {host} {pubkey} />
+			</div>
+		{/if}
+	</div>
+</div>
