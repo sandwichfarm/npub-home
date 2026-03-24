@@ -26,7 +26,8 @@ export function subscribe(pubkey: string) {
 		.req(BOOTSTRAP_RELAYS, [
 			{ kinds: [10002], authors: [pubkey], limit: 5 },
 			{ kinds: [0], authors: [pubkey], limit: 1 },
-			{ kinds: [35128], authors: [pubkey] }
+			{ kinds: [35128], authors: [pubkey] },
+			{ kinds: [16767], authors: [pubkey], limit: 1 }
 		])
 		.subscribe(addToStore);
 
@@ -40,7 +41,8 @@ export function subscribe(pubkey: string) {
 				pool
 					.req(userRelays, [
 						{ kinds: [0], authors: [pubkey], limit: 1 },
-						{ kinds: [35128], authors: [pubkey] }
+						{ kinds: [35128], authors: [pubkey] },
+						{ kinds: [16767], authors: [pubkey], limit: 1 }
 					])
 					.subscribe(addToStore);
 			}
