@@ -1,6 +1,6 @@
 # nsite-profile
 
-A simple SPA that serves as a landing page for a nostr [nsite](https://github.com/nickkelly-project/nsite). When deployed to an nsite domain (e.g., `npub1xxx.nsite.example.com`), it parses the pubkey from the hostname, fetches the owner's profile (kind 0) from relays, and lists all their named nsites (kind 35128) with links.
+A simple SPA that serves as a landing page for a nostr nsite. When deployed to an nsite domain (e.g., `npub1xxx.nsite.run`), it parses the pubkey from the hostname, fetches the owner's profile (kind 0) from relays, and lists all their named nsites (kind 35128) with links.
 
 ## How it works
 
