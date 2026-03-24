@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { NsiteEntry } from '$lib/nostr/loaders';
-	import { buildSubsiteUrl } from '$lib/nostr/bootstrap';
+	import { buildSiteUrl } from '$lib/nostr/bootstrap';
 
 	let {
 		nsites,
@@ -30,15 +30,18 @@
 		<div class="grid gap-3">
 			{#each nsites as nsite}
 				<a
-					href={buildSubsiteUrl(host, pubkey, nsite.slug)}
+					href={buildSiteUrl(host, pubkey, nsite.slug)}
 					class="group flex items-center justify-between rounded-lg border border-neutral-700 bg-neutral-800/50 px-4 py-3 transition hover:border-purple-500/50 hover:bg-neutral-800"
 				>
 					<div>
 						<span class="font-medium text-white group-hover:text-purple-300"
-							>{nsite.title || nsite.slug}</span
+							>{nsite.title || nsite.slug || 'Root Site'}</span
 						>
-						{#if nsite.title}
+						{#if nsite.slug && nsite.title}
 							<span class="ml-2 text-xs text-neutral-500">{nsite.slug}</span>
+						{/if}
+						{#if !nsite.slug}
+							<span class="ml-2 text-xs text-purple-400/60">root</span>
 						{/if}
 						<span class="ml-2 text-xs text-neutral-500">{formatDate(nsite.createdAt)}</span>
 						{#if nsite.description}

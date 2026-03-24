@@ -82,7 +82,7 @@ function parseNpubString(npub: string): ParsedHost | null {
 	return null;
 }
 
-export function buildSubsiteUrl(host: string, pubkey: string, slug: string): string {
+export function buildSiteUrl(host: string, pubkey: string, slug?: string): string {
 	const [hostWithoutPort, port] = host.split(':');
 	const parts = hostWithoutPort.split('.');
 
@@ -105,8 +105,14 @@ export function buildSubsiteUrl(host: string, pubkey: string, slug: string): str
 	}
 
 	const baseDomain = parts.slice(baseDomainIdx).join('.');
-	const b36 = pubkeyToBase36(pubkey);
 	const portSuffix = port ? `:${port}` : '';
 	const protocol = port ? 'http' : 'https';
-	return `${protocol}://${b36}${slug}.${baseDomain}${portSuffix}`;
+
+	if (slug) {
+		const b36 = pubkeyToBase36(pubkey);
+		return `${protocol}://${b36}${slug}.${baseDomain}${portSuffix}`;
+	}
+
+	const npub = nip19.npubEncode(pubkey);
+	return `${protocol}://${npub}.${baseDomain}${portSuffix}`;
 }

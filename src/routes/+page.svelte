@@ -16,6 +16,8 @@
 	let pubkey = $state('');
 
 	onMount(() => {
+		import('@nsite/stealthis');
+
 		host = window.location.host;
 		const parsed = parseNpubFromHostname(window.location.hostname);
 
@@ -36,10 +38,14 @@
 		});
 
 		// Reactively read nsites from eventStore as events arrive
+		const isNamedSite = !!parsed.identifier;
 		const nsiteSub = eventStore
-			.filters({ kinds: [35128], authors: [parsed.pubkey] })
+			.filters({ kinds: [15128, 35128], authors: [parsed.pubkey] })
 			.subscribe(() => {
-				nsites = getNsitesFromStore(parsed.pubkey);
+				nsites = getNsitesFromStore(parsed.pubkey, {
+					excludeSlug: parsed.identifier,
+					includeRoot: isNamedSite
+				});
 			});
 
 		return () => {
@@ -62,6 +68,9 @@
 			<div class="overflow-hidden rounded-xl border border-neutral-800 bg-neutral-900">
 				<ProfileCard {profile} {npub} />
 				<NsiteList {nsites} {host} {pubkey} />
+			</div>
+			<div class="mt-6 flex justify-center">
+				<nsite-deploy label="Steal this nsite"></nsite-deploy>
 			</div>
 		{/if}
 	</div>
