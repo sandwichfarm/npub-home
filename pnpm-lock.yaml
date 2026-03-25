@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@nsite/stealthis':
+        specifier: ^0.2.0
+        version: 0.2.0(typescript@5.9.3)
       applesauce-core:
         specifier: ^5.1.0
         version: 5.1.0(typescript@5.9.3)
@@ -255,6 +258,9 @@ packages:
   '@noble/hashes@2.0.1':
     resolution: {integrity: sha512-XlOlEbQcE9fmuXxrVTXCTlG2nlRXa9Rj3rr5Ue/+tX+nmkgbX720YHh0VR3hBF9xDvwnb8D2shVGOwNx+ulArw==}
     engines: {node: '>= 20.19.0'}
+
+  '@nsite/stealthis@0.2.0':
+    resolution: {integrity: sha512-iPjUferdyXFx1LLfgk1+upXAY5nH7vce1KsXNLBnO0t5+x6hdU9eZYyKVaZYkyBUMMcubJV64/QvBqqG03y/qQ==}
 
   '@polka/url@1.0.0-next.29':
     resolution: {integrity: sha512-wwQAWhWSuHaag8c4q/KN/vCoeOJYshAIvMQwD4GpSb3OiZklFfvAgmj0VCBBImRpuF/aFgIRzllXlVX93Jevww==}
@@ -796,6 +802,9 @@ packages:
     resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
 
+  qrcode-generator@1.5.2:
+    resolution: {integrity: sha512-pItrW0Z9HnDBnFmgiNrY1uxRdri32Uh9EjNYLPVC2zZ3ZRIIEqBoDgm4DkvDwNNDHTK7FNkmr8zAa77BYc9xNw==}
+
   readdirp@4.1.2:
     resolution: {integrity: sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==}
     engines: {node: '>= 14.18.0'}
@@ -1031,6 +1040,13 @@ snapshots:
   '@noble/hashes@1.8.0': {}
 
   '@noble/hashes@2.0.1': {}
+
+  '@nsite/stealthis@0.2.0(typescript@5.9.3)':
+    dependencies:
+      nostr-tools: 2.23.3(typescript@5.9.3)
+      qrcode-generator: 1.5.2
+    transitivePeerDependencies:
+      - typescript
 
   '@polka/url@1.0.0-next.29': {}
 
@@ -1466,6 +1482,8 @@ snapshots:
       nanoid: 3.3.11
       picocolors: 1.1.1
       source-map-js: 1.2.1
+
+  qrcode-generator@1.5.2: {}
 
   readdirp@4.1.2: {}
 
