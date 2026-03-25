@@ -2,6 +2,7 @@ import { filter } from 'rxjs';
 import type { NostrEvent } from 'nostr-tools';
 import { eventStore, pool } from './store';
 import { BOOTSTRAP_RELAYS } from './bootstrap';
+import { cacheEvent, loadCachedEvents } from './cache';
 
 export interface NsiteEntry {
 	slug?: string;
@@ -10,8 +11,21 @@ export interface NsiteEntry {
 	description?: string;
 }
 
+let activePubkey: string | undefined;
+
 function addToStore(msg: NostrEvent | 'EOSE') {
-	if (msg !== 'EOSE') eventStore.add(msg);
+	if (msg !== 'EOSE') {
+		eventStore.add(msg);
+		if (activePubkey) cacheEvent(activePubkey, msg);
+	}
+}
+
+/** Hydrate the event store from localStorage for instant rendering. */
+export function hydrateFromCache(pubkey: string): void {
+	const cached = loadCachedEvents(pubkey);
+	for (const event of cached) {
+		eventStore.add(event);
+	}
 }
 
 function extractRelays(event: NostrEvent): string[] {
@@ -21,13 +35,16 @@ function extractRelays(event: NostrEvent): string[] {
 }
 
 export function subscribe(pubkey: string) {
+	activePubkey = pubkey;
+
 	// Query bootstrap relays for everything upfront
 	const bootstrapSub = pool
 		.req(BOOTSTRAP_RELAYS, [
 			{ kinds: [10002], authors: [pubkey], limit: 5 },
 			{ kinds: [0], authors: [pubkey], limit: 1 },
+			{ kinds: [35128], authors: [pubkey] },
 			{ kinds: [15128], authors: [pubkey], limit: 1 },
-			{ kinds: [35128], authors: [pubkey] }
+      { kinds: [16767], authors: [pubkey], limit: 1 }
 		])
 		.subscribe(addToStore);
 
@@ -41,8 +58,9 @@ export function subscribe(pubkey: string) {
 				pool
 					.req(userRelays, [
 						{ kinds: [0], authors: [pubkey], limit: 1 },
-						{ kinds: [15128], authors: [pubkey], limit: 1 },
-						{ kinds: [35128], authors: [pubkey] }
+			      { kinds: [35128], authors: [pubkey] },
+			      { kinds: [15128], authors: [pubkey], limit: 1 },
+            { kinds: [16767], authors: [pubkey], limit: 1 }
 					])
 					.subscribe(addToStore);
 			}
