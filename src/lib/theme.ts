@@ -295,9 +295,11 @@ export function applyTheme(theme: ActiveProfileTheme): void {
 		const mode = theme.background.mode || 'cover';
 		const bgCss =
 			mode === 'tile'
-				? `body { background-image: url('${theme.background.url}'); background-repeat: repeat; }`
-				: `body { background-image: url('${theme.background.url}'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; }`;
+				? `body { background-image: url('${theme.background.url}'); background-repeat: repeat; background-color: hsl(${tokens.background}); }`
+				: `body { background-image: url('${theme.background.url}'); background-size: cover; background-position: center; background-attachment: fixed; background-repeat: no-repeat; background-color: hsl(${tokens.background}); }`;
 		getOrCreateStyle('theme-background').textContent = bgCss;
+	} else {
+		getOrCreateStyle('theme-background').textContent = `body { background-color: hsl(${tokens.background}); }`;
 	}
 }
 
