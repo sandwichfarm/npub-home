@@ -30,7 +30,7 @@
 		<div class="grid gap-3">
 			{#each nsites as nsite}
 				<a
-					href={buildSubsiteUrl(host, pubkey, nsite.slug)}
+					href={buildSiteUrl(host, pubkey, nsite.slug)}
 					class="group flex items-center justify-between rounded-lg border border-border bg-card px-4 py-3 transition hover:border-primary/50 hover:bg-secondary"
 				>
 					<div>

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { parseNpubFromHostname } from '$lib/nostr/bootstrap';
-	import { subscribe, getNsitesFromStore, type NsiteEntry } from '$lib/nostr/loaders';
+	import { subscribe, hydrateFromCache, getNsitesFromStore, type NsiteEntry } from '$lib/nostr/loaders';
 	import { eventStore } from '$lib/nostr/store';
 	import { parseActiveProfileTheme, applyTheme, clearTheme } from '$lib/theme';
 	import type { ProfileContent } from 'applesauce-core/helpers/profile';
@@ -30,7 +30,10 @@
 		npub = parsed.npub;
 		pubkey = parsed.pubkey;
 
-		// Fire subscriptions — events stream into eventStore
+		// Hydrate from localStorage for instant rendering
+		hydrateFromCache(parsed.pubkey);
+
+		// Fire subscriptions — events stream into eventStore (will update cache)
 		const unsubscribe = subscribe(parsed.pubkey);
 
 		// Reactively read profile from eventStore
