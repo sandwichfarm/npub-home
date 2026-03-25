@@ -25,7 +25,7 @@ export function subscribe(pubkey: string) {
 	const bootstrapSub = pool
 		.req(BOOTSTRAP_RELAYS, [
 			{ kinds: [10002], authors: [pubkey], limit: 5 },
-			{ kinds: [0], authors: [pubkey], limit: 1 },<<<<<<< ditto-profile-theme
+			{ kinds: [0], authors: [pubkey], limit: 1 },
 			{ kinds: [35128], authors: [pubkey] },
 			{ kinds: [15128], authors: [pubkey], limit: 1 },
       { kinds: [16767], authors: [pubkey], limit: 1 }
