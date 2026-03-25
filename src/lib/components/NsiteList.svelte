@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { NsiteEntry } from '$lib/nostr/loaders';
-	import { buildSubsiteUrl } from '$lib/nostr/bootstrap';
+	import { buildSiteUrl } from '$lib/nostr/bootstrap';
 
 	let {
 		nsites,
@@ -37,8 +37,11 @@
 						<span class="font-medium text-foreground group-hover:text-primary"
 							>{nsite.title || nsite.slug}</span
 						>
-						{#if nsite.title}
+						{#if nsite.slug && nsite.title}
 							<span class="ml-2 text-xs text-muted-foreground">{nsite.slug}</span>
+						{/if}
+						{#if !nsite.slug}
+							<span class="ml-2 text-xs border-primary">root</span>
 						{/if}
 						<span class="ml-2 text-xs text-muted-foreground">{formatDate(nsite.createdAt)}</span>
 						{#if nsite.description}

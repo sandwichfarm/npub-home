@@ -4,7 +4,7 @@ import { eventStore, pool } from './store';
 import { BOOTSTRAP_RELAYS } from './bootstrap';
 
 export interface NsiteEntry {
-	slug: string;
+	slug?: string;
 	createdAt: number;
 	title?: string;
 	description?: string;
@@ -25,9 +25,10 @@ export function subscribe(pubkey: string) {
 	const bootstrapSub = pool
 		.req(BOOTSTRAP_RELAYS, [
 			{ kinds: [10002], authors: [pubkey], limit: 5 },
-			{ kinds: [0], authors: [pubkey], limit: 1 },
+			{ kinds: [0], authors: [pubkey], limit: 1 },<<<<<<< ditto-profile-theme
 			{ kinds: [35128], authors: [pubkey] },
-			{ kinds: [16767], authors: [pubkey], limit: 1 }
+			{ kinds: [15128], authors: [pubkey], limit: 1 },
+      { kinds: [16767], authors: [pubkey], limit: 1 }
 		])
 		.subscribe(addToStore);
 
@@ -41,8 +42,9 @@ export function subscribe(pubkey: string) {
 				pool
 					.req(userRelays, [
 						{ kinds: [0], authors: [pubkey], limit: 1 },
-						{ kinds: [35128], authors: [pubkey] },
-						{ kinds: [16767], authors: [pubkey], limit: 1 }
+			      { kinds: [35128], authors: [pubkey] },
+			      { kinds: [15128], authors: [pubkey], limit: 1 },
+            { kinds: [16767], authors: [pubkey], limit: 1 }
 					])
 					.subscribe(addToStore);
 			}
@@ -54,14 +56,32 @@ export function subscribe(pubkey: string) {
 	};
 }
 
-export function getNsitesFromStore(pubkey: string): NsiteEntry[] {
-	const events = eventStore.getByFilters({ kinds: [35128], authors: [pubkey] });
+export function getNsitesFromStore(
+	pubkey: string,
+	opts: { excludeSlug?: string; includeRoot?: boolean } = {}
+): NsiteEntry[] {
 	const nsites: NsiteEntry[] = [];
+
+	// Include root site (kind 15128) if requested
+	if (opts.includeRoot) {
+		const rootEvents = eventStore.getByFilters({ kinds: [15128], authors: [pubkey] });
+		if (rootEvents.length > 0) {
+			const root = rootEvents.sort((a, b) => b.created_at - a.created_at)[0];
+			nsites.push({
+				createdAt: root.created_at,
+				title: root.tags.find((t) => t[0] === 'title')?.[1],
+				description: root.tags.find((t) => t[0] === 'description')?.[1]
+			});
+		}
+	}
+
+	// Named sites (kind 35128)
+	const events = eventStore.getByFilters({ kinds: [35128], authors: [pubkey] });
 	const seen = new Set<string>();
 	const sorted = events.sort((a, b) => b.created_at - a.created_at);
 	for (const event of sorted) {
 		const dTag = event.tags.find((t) => t[0] === 'd')?.[1];
-		if (dTag && !seen.has(dTag)) {
+		if (dTag && !seen.has(dTag) && dTag !== opts.excludeSlug) {
 			seen.add(dTag);
 			nsites.push({
 				slug: dTag,
