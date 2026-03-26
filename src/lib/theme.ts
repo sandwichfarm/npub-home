@@ -22,6 +22,7 @@ export interface ThemeBackground {
 export interface ActiveProfileTheme {
 	colors: CoreThemeColors;
 	font?: ThemeFont;
+	titleFont?: ThemeFont;
 	background?: ThemeBackground;
 }
 
@@ -184,14 +185,22 @@ function parseColorTags(tags: string[][]): CoreThemeColors | null {
 	};
 }
 
-function parseFontTag(tags: string[][]): ThemeFont | undefined {
+function parseFontTags(tags: string[][]): { body?: ThemeFont; title?: ThemeFont } {
+	const result: { body?: ThemeFont; title?: ThemeFont } = {};
 	for (const tag of tags) {
 		if (tag[0] !== 'f' || !tag[1]) continue;
 		const font: ThemeFont = { family: tag[1] };
+		// Format: ["f", "<family>", "<url>", "<role>"]
+		// Role is the 4th element (index 3). Legacy tags with no role are treated as "body".
+		const role = tag[3] || 'body';
 		if (tag[2]) font.url = tag[2];
-		return font;
+		if (role === 'title' && !result.title) {
+			result.title = font;
+		} else if (role === 'body' && !result.body) {
+			result.body = font;
+		}
 	}
-	return undefined;
+	return result;
 }
 
 function parseBackgroundTag(tags: string[][]): ThemeBackground | undefined {
@@ -247,9 +256,12 @@ export function parseActiveProfileTheme(event: NostrEvent): ActiveProfileTheme |
 
 	if (!colors) return null;
 
+	const fonts = parseFontTags(event.tags);
+
 	return {
 		colors,
-		font: parseFontTag(event.tags),
+		font: fonts.body,
+		titleFont: fonts.title,
 		background: parseBackgroundTag(event.tags)
 	};
 }
@@ -280,7 +292,7 @@ export function applyTheme(theme: ActiveProfileTheme): void {
 		.join(' ');
 	getOrCreateStyle('theme-vars').textContent = `:root { ${vars} }`;
 
-	// Font
+	// Body font (applied globally)
 	if (theme.font?.family) {
 		let css = '';
 		if (theme.font.url) {
@@ -288,6 +300,18 @@ export function applyTheme(theme: ActiveProfileTheme): void {
 		}
 		css += `:root { font-family: '${theme.font.family}', system-ui, sans-serif; }`;
 		getOrCreateStyle('theme-font').textContent = css;
+	}
+
+	// Title font (applied to display name, falls back to body font)
+	if (theme.titleFont?.family) {
+		let css = '';
+		if (theme.titleFont.url) {
+			css += `@font-face { font-family: '${theme.titleFont.family}'; src: url('${theme.titleFont.url}'); font-display: swap; }\n`;
+		}
+		css += `.theme-title-font { font-family: '${theme.titleFont.family}', ${theme.font?.family ? `'${theme.font.family}', ` : ''}system-ui, sans-serif; }`;
+		getOrCreateStyle('theme-title-font').textContent = css;
+	} else {
+		document.getElementById('theme-title-font')?.remove();
 	}
 
 	// Background
@@ -305,7 +329,7 @@ export function applyTheme(theme: ActiveProfileTheme): void {
 
 /** Remove any applied theme (restores CSS defaults from app.css). */
 export function clearTheme(): void {
-	for (const id of ['theme-vars', 'theme-font', 'theme-background']) {
+	for (const id of ['theme-vars', 'theme-font', 'theme-title-font', 'theme-background']) {
 		document.getElementById(id)?.remove();
 	}
 }
