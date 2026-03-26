@@ -56,7 +56,7 @@
 	{/if}
 
 	<div class="text-center">
-		<h1 class="text-2xl font-bold text-foreground">{displayName}</h1>
+		<h1 class="theme-title-font text-2xl font-bold text-foreground">{displayName}</h1>
 		{#if handle}
 			<p class="text-sm text-muted-foreground">{handle}</p>
 		{/if}
