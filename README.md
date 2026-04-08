@@ -1,13 +1,13 @@
 # nsite-profile
 
-A simple SPA that serves as a landing page for a nostr nsite. When deployed to an nsite domain (e.g., `npub1xxx.nsite.run`), it parses the pubkey from the hostname, fetches the owner's profile (kind 0) from relays, and lists all their named nsites (kind 35128) with links.
+A simple SPA that serves as a landing page for a nostr nsite. When deployed to an nsite domain, it parses the current host, fetches the owner's profile (kind 0) from relays, and lists the owner's root site, named nsites, and manifest snapshots.
 
 ## How it works
 
-1. Parses the `npub1...` from the hostname
+1. Parses root, named-site, or snapshot hosts from the hostname
 2. Queries bootstrap relays for the user's relay list (kind 10002)
-3. Streams in profile (kind 0) and nsite (kind 35128) events as they arrive
-4. Renders the profile card and a list of linked subsites
+3. Streams in profile (kind 0), nsite manifests (kinds `15128` and `35128`), snapshots (kind `5128`), and theme events as they arrive
+4. Renders the profile card and a site list with expandable version history
 
 Data is fully reactive — there's no loading state or waiting. Events stream into an [applesauce](https://github.com/hzrd149/applesauce) `EventStore` and the UI updates as data arrives.
 
@@ -55,9 +55,9 @@ Outputs a static SPA to `dist/` with `index.html` as the fallback entry point. D
 src/
   lib/
     nostr/
-      bootstrap.ts    # npub parsing, subsite URL builder, bootstrap relays
+      bootstrap.ts    # host parsing, site/snapshot URL builders, bootstrap relays
       store.ts         # EventStore + RelayPool singletons
-      loaders.ts       # relay subscriptions, nsite extraction
+      loaders.ts       # relay subscriptions, nsite/snapshot extraction
     components/
       ProfileCard.svelte
       NsiteList.svelte
