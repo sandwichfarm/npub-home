@@ -8,26 +8,47 @@ export const BOOTSTRAP_RELAYS = [
 ];
 
 const PUBKEY_B36_LEN = 50;
+const HEX_32_BYTE_LEN = 64;
 const NAMED_SITE_REGEX = /^[0-9a-z]{50}[a-z0-9-]{1,13}$/;
+const SNAPSHOT_SITE_REGEX = /^v[0-9a-z]{50}$/;
 
-export interface ParsedHost {
-	npub: string;
-	pubkey: string;
-	identifier?: string;
-}
+export type ParsedHost =
+	| {
+			type: 'root';
+			npub: string;
+			pubkey: string;
+	  }
+	| {
+			type: 'named';
+			npub: string;
+			pubkey: string;
+			identifier: string;
+	  }
+	| {
+			type: 'snapshot';
+			snapshotId: string;
+	  };
 
-export function pubkeyToBase36(pubkey: string): string {
-	return BigInt('0x' + pubkey)
+export function hexToBase36(hex: string): string {
+	return BigInt('0x' + hex)
 		.toString(36)
 		.padStart(PUBKEY_B36_LEN, '0');
 }
 
-export function base36ToPubkey(b36: string): string {
+export function base36ToHex(b36: string): string {
 	let n = 0n;
 	for (const c of b36) {
 		n = n * 36n + BigInt(parseInt(c, 36));
 	}
-	return n.toString(16).padStart(64, '0');
+	return n.toString(16).padStart(HEX_32_BYTE_LEN, '0');
+}
+
+export function pubkeyToBase36(pubkey: string): string {
+	return hexToBase36(pubkey);
+}
+
+export function base36ToPubkey(b36: string): string {
+	return base36ToHex(b36);
 }
 
 export function parseNpubFromHostname(hostname: string): ParsedHost | null {
@@ -49,6 +70,14 @@ export function parseNpubFromHostname(hostname: string): ParsedHost | null {
 
 	// Check for base36 named site format (<pubkeyB36><dTag>.nsite-host.com)
 	const label = parts[0];
+	if (label && SNAPSHOT_SITE_REGEX.test(label)) {
+		try {
+			return { type: 'snapshot', snapshotId: base36ToHex(label.slice(1)) };
+		} catch {
+			// invalid base36
+		}
+	}
+
 	if (
 		label &&
 		label.length > PUBKEY_B36_LEN &&
@@ -61,7 +90,7 @@ export function parseNpubFromHostname(hostname: string): ParsedHost | null {
 		try {
 			const pubkey = base36ToPubkey(b36);
 			const npub = nip19.npubEncode(pubkey);
-			return { npub, pubkey, identifier: dTag };
+			return { type: 'named', npub, pubkey, identifier: dTag };
 		} catch {
 			// invalid base36
 		}
@@ -74,7 +103,7 @@ function parseNpubString(npub: string): ParsedHost | null {
 	try {
 		const decoded = nip19.decode(npub);
 		if (decoded.type === 'npub') {
-			return { npub, pubkey: decoded.data };
+			return { type: 'root', npub, pubkey: decoded.data };
 		}
 	} catch {
 		// invalid npub
@@ -91,6 +120,10 @@ export function buildSiteUrl(host: string, pubkey: string, slug?: string): strin
 	for (let i = 0; i < parts.length; i++) {
 		if (parts[i].startsWith('npub1') && parts[i].length >= 63) {
 			baseDomainIdx = i + 1;
+			break;
+		}
+		if (i === 0 && SNAPSHOT_SITE_REGEX.test(parts[i])) {
+			baseDomainIdx = 1;
 			break;
 		}
 		if (
@@ -115,4 +148,33 @@ export function buildSiteUrl(host: string, pubkey: string, slug?: string): strin
 
 	const npub = nip19.npubEncode(pubkey);
 	return `${protocol}://${npub}.${baseDomain}${portSuffix}`;
+}
+
+export function buildSnapshotUrl(host: string, snapshotId: string): string {
+	const [hostWithoutPort, port] = host.split(':');
+	const parts = hostWithoutPort.split('.');
+
+	let baseDomainIdx = 1;
+	for (let i = 0; i < parts.length; i++) {
+		if (parts[i].startsWith('npub1') && parts[i].length >= 63) {
+			baseDomainIdx = i + 1;
+			break;
+		}
+		if (
+			i === 0 &&
+			(SNAPSHOT_SITE_REGEX.test(parts[i]) ||
+				(parts[i].length > PUBKEY_B36_LEN &&
+					NAMED_SITE_REGEX.test(parts[i]) &&
+					!parts[i].endsWith('-')))
+		) {
+			baseDomainIdx = 1;
+			break;
+		}
+	}
+
+	const baseDomain = parts.slice(baseDomainIdx).join('.');
+	const portSuffix = port ? `:${port}` : '';
+	const protocol = port ? 'http' : 'https';
+
+	return `${protocol}://v${hexToBase36(snapshotId)}.${baseDomain}${portSuffix}`;
 }
