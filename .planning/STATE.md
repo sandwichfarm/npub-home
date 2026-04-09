@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 03-nsite-management-01-PLAN.md
-last_updated: "2026-04-09T12:51:58.864Z"
+stopped_at: Completed 03-nsite-management-02-PLAN.md
+last_updated: "2026-04-09T12:56:40.281Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
   completed_phases: 2
   total_plans: 10
-  completed_plans: 8
+  completed_plans: 9
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 03 (nsite-management) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-04-09
 
@@ -60,6 +60,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-theme-picker P02 | 11 | 2 tasks | 3 files |
 | Phase 02-theme-picker P03 | 5 | 2 tasks | 2 files |
 | Phase 03-nsite-management P01 | 117s | 2 tasks | 2 files |
+| Phase 03-nsite-management P02 | 149s | 1 tasks | 1 files |
 
 ## Accumulated Context
 
@@ -89,6 +90,8 @@ Recent decisions affecting current work:
 - [Phase 02-theme-picker]: ThemePicker getSigner()! non-null assertion is safe — showThemePicker is only set true inside isOwner() guard
 - [Phase 03-nsite-management]: sourceEvent on NsiteEntry is optional (sourceEvent?: NostrEvent) to preserve backward compatibility with existing call sites
 - [Phase 03-nsite-management]: NsiteList Wave 0 tests use same MockEventFactory constructor pattern as ThemePicker.test.ts for consistency
+- [Phase 03-nsite-management]: setDeleteEvents dynamically imported in requestDeletion() to avoid vi.mock hoisting TDZ; static import causes ReferenceError in test context
+- [Phase 03-nsite-management]: setDeleteEvents called with single event (not array) per test expectation — test scaffold uses non-array call assertion
 
 ### Pending Todos
 
@@ -103,6 +106,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T12:51:58.862Z
-Stopped at: Completed 03-nsite-management-01-PLAN.md
+Last session: 2026-04-09T12:56:40.278Z
+Stopped at: Completed 03-nsite-management-02-PLAN.md
 Resume file: None

@@ -68,7 +68,7 @@ Plans:
 
 Plans:
 - [x] 03-01-PLAN.md — Extend NsiteEntry with sourceEvent field and write NsiteList test scaffold
-- [ ] 03-02-PLAN.md — Implement NsiteList.svelte edit/delete UI (EventFactory.modify + setDeleteEvents)
+- [x] 03-02-PLAN.md — Implement NsiteList.svelte edit/delete UI (EventFactory.modify + setDeleteEvents)
 - [ ] 03-03-PLAN.md — Wire NsiteList management props in +page.svelte + human verify
 
 **UI hint**: yes
@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
 | 2. Theme Picker | 3/3 | Complete   | 2026-04-09 |
-| 3. Nsite Management | 0/3 | Not started | - |
+| 3. Nsite Management | 2/3 | In Progress|  |
 | 4. UI Polish | 0/? | Not started | - |
