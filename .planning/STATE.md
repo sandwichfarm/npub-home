@@ -1,3 +1,19 @@
+---
+gsd_state_version: 1.0
+milestone: v1.0
+milestone_name: milestone
+status: executing
+stopped_at: Completed 01-auth-01-01-PLAN.md
+last_updated: "2026-04-09T11:24:04.856Z"
+last_activity: 2026-04-09
+progress:
+  total_phases: 4
+  completed_phases: 0
+  total_plans: 4
+  completed_plans: 1
+  percent: 0
+---
+
 # Project State
 
 ## Project Reference
@@ -5,20 +21,21 @@
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Show a Nostr user's nsites in one place, styled with their profile theme, with zero configuration for visitors.
-**Current focus:** Phase 1 — Auth
+**Current focus:** Phase 01 — auth
 
 ## Current Position
 
-Phase: 1 of 4 (Auth)
-Plan: 0 of ? in current phase
-Status: Ready to plan
-Last activity: 2026-04-09 — Roadmap created, 4 phases defined, all 19 v1 requirements mapped
+Phase: 01 (auth) — EXECUTING
+Plan: 2 of 4
+Status: Ready to execute
+Last activity: 2026-04-09
 
 Progress: [░░░░░░░░░░] 0%
 
 ## Performance Metrics
 
 **Velocity:**
+
 - Total plans completed: 0
 - Average duration: —
 - Total execution time: —
@@ -30,10 +47,12 @@ Progress: [░░░░░░░░░░] 0%
 | - | - | - | - |
 
 **Recent Trend:**
+
 - Last 5 plans: —
 - Trend: —
 
 *Updated after each plan completion*
+| Phase 01-auth P01 | 5 | 3 tasks | 5 files |
 
 ## Accumulated Context
 
@@ -46,6 +65,8 @@ Recent decisions affecting current work:
 - [Init]: Theme picker is a modal dialog; must be extractable as standalone component (props-only design, no singleton imports)
 - [Init]: NIP-07 + NIP-46 dual support; NIP-46 requires editable relay field that updates URI and QR live
 - [Init]: NIP-09 deletion is advisory — UI must label it "Request deletion" with best-effort explanation
+- [Phase 01-auth]: Used resolve.alias in vitest.config.ts instead of vite-tsconfig-paths (simpler, sufficient for $lib mapping)
+- [Phase 01-auth]: vitest.config.ts is separate from vite.config.ts to avoid SvelteKit adapter conflicts in test context
 
 ### Pending Todos
 
@@ -60,6 +81,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09
-Stopped at: Roadmap created and written to disk; REQUIREMENTS.md traceability updated
+Last session: 2026-04-09T11:24:04.854Z
+Stopped at: Completed 01-auth-01-01-PLAN.md
 Resume file: None

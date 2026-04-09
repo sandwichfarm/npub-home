@@ -7,13 +7,13 @@
 
 ### Authentication
 
-- [ ] **AUTH-01**: User can log in via NIP-07 browser extension (window.nostr)
-- [ ] **AUTH-02**: User can log in via NIP-46 by pasting a bunker URI
-- [ ] **AUTH-03**: User can log in via NIP-46 by scanning a nostrconnect:// QR code
-- [ ] **AUTH-04**: User can modify the default relay used for NIP-46 bunker connection, which updates both the QR code and bunker URI live
-- [ ] **AUTH-05**: Logged-in user's pubkey is compared to the site npub to detect owner status
-- [ ] **AUTH-06**: Login state persists across page refreshes (session survives reload)
-- [ ] **AUTH-07**: User can log out
+- [x] **AUTH-01**: User can log in via NIP-07 browser extension (window.nostr)
+- [x] **AUTH-02**: User can log in via NIP-46 by pasting a bunker URI
+- [x] **AUTH-03**: User can log in via NIP-46 by scanning a nostrconnect:// QR code
+- [x] **AUTH-04**: User can modify the default relay used for NIP-46 bunker connection, which updates both the QR code and bunker URI live
+- [x] **AUTH-05**: Logged-in user's pubkey is compared to the site npub to detect owner status
+- [x] **AUTH-06**: Login state persists across page refreshes (session survives reload)
+- [x] **AUTH-07**: User can log out
 
 ### Theme Management
 
@@ -69,13 +69,13 @@
 
 | Requirement | Phase | Status |
 |-------------|-------|--------|
-| AUTH-01 | Phase 1 | Pending |
-| AUTH-02 | Phase 1 | Pending |
-| AUTH-03 | Phase 1 | Pending |
-| AUTH-04 | Phase 1 | Pending |
-| AUTH-05 | Phase 1 | Pending |
-| AUTH-06 | Phase 1 | Pending |
-| AUTH-07 | Phase 1 | Pending |
+| AUTH-01 | Phase 1 | Complete |
+| AUTH-02 | Phase 1 | Complete |
+| AUTH-03 | Phase 1 | Complete |
+| AUTH-04 | Phase 1 | Complete |
+| AUTH-05 | Phase 1 | Complete |
+| AUTH-06 | Phase 1 | Complete |
+| AUTH-07 | Phase 1 | Complete |
 | THEME-01 | Phase 2 | Pending |
 | THEME-02 | Phase 2 | Pending |
 | THEME-03 | Phase 2 | Pending |
