@@ -5,6 +5,9 @@ import path from 'path';
 export default defineConfig({
 	plugins: [svelte({ hot: false })],
 	resolve: {
+		// 'browser' condition is required so Svelte resolves to the client bundle
+		// (index-client.js) rather than the server bundle (index-server.js) in jsdom tests.
+		conditions: ['browser'],
 		alias: {
 			$lib: path.resolve(__dirname, 'src/lib'),
 		},
