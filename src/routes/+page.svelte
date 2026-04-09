@@ -135,7 +135,15 @@
 					<OwnerBadge ontheme={() => (showThemePicker = true)} />
 				{/if}
 				<ProfileCard {profile} {npub} />
-				<NsiteList {nsites} {host} {pubkey} />
+				<NsiteList
+					{nsites}
+					{host}
+					{pubkey}
+					isOwner={isOwner()}
+					signer={getSigner() ?? undefined}
+					{pool}
+					{writeRelays}
+				/>
 			</div>
 			<div class="mt-6 flex items-center justify-center gap-4">
 				<nsite-deploy label="Steal this nsite"></nsite-deploy>
