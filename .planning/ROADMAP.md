@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [ ] **Phase 1: Auth** - Working login (NIP-07 + NIP-46), owner detection, and persistent session
 - [ ] **Phase 2: Theme Picker** - Owner can browse, preview, and publish themes via an isolated modal component
-- [ ] **Phase 3: Nsite Management** - Owner can edit nsite name/description and request deletion
+- [ ] **Phase 3: Nsite Management** - Owner can edit nsite name/description and request deletion via NIP-09
 - [ ] **Phase 4: UI Polish** - GitHub footer link and default background color fix
 
 ## Phase Details
@@ -29,7 +29,13 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. After login, the page shows owner-only management UI without reloading; visitors see none of it
   4. Refreshing the page after login keeps the owner logged in (session survives reload)
   5. Owner can log out from any page state and the management UI disappears
-**Plans**: TBD
+**Plans**: 4 plans
+
+Plans:
+- [ ] 01-01-PLAN.md — Install deps (applesauce-signers, lean-qr) and stand up vitest test infrastructure
+- [ ] 01-02-PLAN.md — Implement auth.svelte.ts reactive singleton (NIP-07, NIP-46 bunker, owner detection, session, logout)
+- [ ] 01-03-PLAN.md — Build LoginModal, ExtensionTab, RemoteSignerTab (QR canvas + relay live-update)
+- [ ] 01-04-PLAN.md — Wire auth into +page.svelte: restoreSession, LoginModal, OwnerBadge, footer Login/Logout
 **UI hint**: yes
 
 ### Phase 2: Theme Picker
@@ -73,7 +79,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth | 0/? | Not started | - |
+| 1. Auth | 0/4 | Not started | - |
 | 2. Theme Picker | 0/? | Not started | - |
 | 3. Nsite Management | 0/? | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |
