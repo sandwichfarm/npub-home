@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 01-auth-04-PLAN.md
-last_updated: "2026-04-09T11:42:52.021Z"
+status: executing
+stopped_at: Completed 02-theme-picker-01-PLAN.md
+last_updated: "2026-04-09T12:13:38.821Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
   completed_phases: 1
-  total_plans: 4
-  completed_plans: 4
+  total_plans: 7
+  completed_plans: 5
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Show a Nostr user's nsites in one place, styled with their profile theme, with zero configuration for visitors.
-**Current focus:** Phase 01 — auth
+**Current focus:** Phase 02 — theme-picker
 
 ## Current Position
 
-Phase: 2
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 02 (theme-picker) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-04-09
 
 Progress: [░░░░░░░░░░] 0%
@@ -56,6 +56,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-auth P02 | 15 | 2 tasks | 7 files |
 | Phase 01-auth P03 | 3 | 2 tasks | 4 files |
 | Phase 01-auth P04 | 2 | 2 tasks | 2 files |
+| Phase 02-theme-picker P01 | 10 | 1 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -75,6 +76,9 @@ Recent decisions affecting current work:
 - [Phase 01-auth]: NostrConnectSigner recreated (not mutated) on relay change — class has no setRelay API
 - [Phase 01-auth]: tabindex=-1 and onkeydown added to role=dialog panel to satisfy Svelte a11y requirements
 - [Phase 01-auth]: Used .then() inside synchronous onMount instead of async onMount — Svelte onMount cleanup return incompatible with async functions
+- [Phase 02-theme-picker]: nip19 imported as named export alongside type-only NostrEvent import in theme.ts
+- [Phase 02-theme-picker]: Font family sanitization in parseThemeDefinition rejects entire font object (sets undefined) when family fails /^[A-Za-z0-9 _-]+$/ — prevents partial CSS injection
+- [Phase 02-theme-picker]: naddr type in decodeNeventInput: id set to empty string, relays passed through — caller resolves by kind+pubkey+d-tag
 
 ### Pending Todos
 
@@ -89,6 +93,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T11:38:46.378Z
-Stopped at: Completed 01-auth-04-PLAN.md
+Last session: 2026-04-09T12:13:38.819Z
+Stopped at: Completed 02-theme-picker-01-PLAN.md
 Resume file: None

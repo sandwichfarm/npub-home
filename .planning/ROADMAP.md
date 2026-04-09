@@ -51,7 +51,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 02-01-PLAN.md — Add parseThemeDefinition() and decodeNeventInput() to theme.ts with unit tests
+- [x] 02-01-PLAN.md — Add parseThemeDefinition() and decodeNeventInput() to theme.ts with unit tests
 - [ ] 02-02-PLAN.md — Build ThemePicker.svelte modal (curated fetch, live preview, nevent paste, kind 16767 publish)
 - [ ] 02-03-PLAN.md — Wire ThemePicker into OwnerBadge + +page.svelte with writeRelays from kind 10002
 **UI hint**: yes
@@ -85,6 +85,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
-| 2. Theme Picker | 0/3 | Not started | - |
+| 2. Theme Picker | 1/3 | In Progress|  |
 | 3. Nsite Management | 0/? | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |
