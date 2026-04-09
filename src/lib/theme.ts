@@ -1,4 +1,5 @@
 import type { NostrEvent } from 'nostr-tools';
+import { nip19 } from 'nostr-tools';
 
 // ─── Types ───────────────────────────────────────────────────────────
 
@@ -252,6 +253,47 @@ export function parseActiveProfileTheme(event: NostrEvent): ActiveProfileTheme |
 		font: parseFontTag(event.tags),
 		background: parseBackgroundTag(event.tags)
 	};
+}
+
+/** Parse a kind 36767 shareable theme definition. Returns null if invalid. */
+export function parseThemeDefinition(event: NostrEvent): ActiveProfileTheme | null {
+	if (event.kind !== 36767) return null;
+
+	const colors = parseColorTags(event.tags);
+	if (!colors) return null;
+
+	// Font family sanitization: reject values with characters that could cause CSS injection
+	// (per RESEARCH.md pitfall 2 — only allow alphanumeric, spaces, hyphens, underscores)
+	let font = parseFontTag(event.tags);
+	if (font && !/^[A-Za-z0-9 _-]+$/.test(font.family)) {
+		font = undefined;
+	}
+
+	return {
+		colors,
+		font,
+		background: parseBackgroundTag(event.tags),
+	};
+}
+
+/** Decode a nevent/naddr/note bech32 into event id + relay hints. Returns null on failure or unsupported type. */
+export function decodeNeventInput(input: string): { id: string; relays: string[] } | null {
+	try {
+		const decoded = nip19.decode(input.trim());
+		if (decoded.type === 'nevent') {
+			return { id: decoded.data.id, relays: decoded.data.relays ?? [] };
+		}
+		if (decoded.type === 'note') {
+			return { id: decoded.data, relays: [] };
+		}
+		if (decoded.type === 'naddr' && decoded.data.kind === 36767) {
+			// naddr needs special handling: caller fetches by kind+pubkey+d-tag separately
+			return { id: '', relays: decoded.data.relays ?? [] };
+		}
+		return null;
+	} catch {
+		return null;
+	}
 }
 
 // ─── DOM Application ─────────────────────────────────────────────────
