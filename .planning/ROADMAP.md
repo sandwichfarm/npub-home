@@ -14,7 +14,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Auth** - Working login (NIP-07 + NIP-46), owner detection, and persistent session (completed 2026-04-09)
 - [x] **Phase 2: Theme Picker** - Owner can browse, preview, and publish themes via an isolated modal component (completed 2026-04-09)
-- [ ] **Phase 3: Nsite Management** - Owner can edit nsite name/description and request deletion via NIP-09
+- [x] **Phase 3: Nsite Management** - Owner can edit nsite name/description and request deletion via NIP-09 (completed 2026-04-09)
 - [ ] **Phase 4: UI Polish** - GitHub footer link and default background color fix
 
 ## Phase Details
@@ -69,7 +69,7 @@ Plans:
 Plans:
 - [x] 03-01-PLAN.md — Extend NsiteEntry with sourceEvent field and write NsiteList test scaffold
 - [x] 03-02-PLAN.md — Implement NsiteList.svelte edit/delete UI (EventFactory.modify + setDeleteEvents)
-- [ ] 03-03-PLAN.md — Wire NsiteList management props in +page.svelte + human verify
+- [x] 03-03-PLAN.md — Wire NsiteList management props in +page.svelte + human verify
 
 **UI hint**: yes
 
@@ -91,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
 | 2. Theme Picker | 3/3 | Complete   | 2026-04-09 |
-| 3. Nsite Management | 2/3 | In Progress|  |
+| 3. Nsite Management | 3/3 | Complete   | 2026-04-09 |
 | 4. UI Polish | 0/? | Not started | - |
