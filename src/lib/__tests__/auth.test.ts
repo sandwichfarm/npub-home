@@ -56,7 +56,7 @@ beforeEach(() => {
 	vi.mocked(NostrConnectSigner.fromBunkerURI).mockResolvedValue({
 		getPublicKey: vi.fn().mockResolvedValue('112233aa'),
 		close: vi.fn(),
-	});
+	} as any);
 });
 
 // --- NIP-07 (AUTH-01) ---
