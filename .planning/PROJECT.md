@@ -27,8 +27,8 @@ Show a Nostr user's nsites in one place, styled with their profile theme, with z
 - [ ] Fix default background color (white → match container background when no Ditto theme is set)
 - [x] Login system supporting NIP-07 (browser extension) and NIP-46 (remote signer with bunker URI, nostrconnect:// QR code, editable relay field) — Phase 1
 - [x] Owner detection: logged-in pubkey === site npub unlocks management features — Phase 1
-- [ ] Theme picker modal: select from curated kind 36767 themes + paste/add nevent references, preview, and publish as kind 16767
-- [ ] Theme picker built as a well-separated component (extractable for future standalone publication)
+- [x] Theme picker modal: select from curated kind 36767 themes + paste/add nevent references, preview, and publish as kind 16767 — Phase 2
+- [x] Theme picker built as a well-separated component (extractable for future standalone publication) — Phase 2
 - [ ] Nsite management: edit name/description of existing nsites (publish updated kind 35128/15128 events)
 - [ ] Nsite management: delete nsites via NIP-09 deletion events
 
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-09 after Phase 1 (Auth) completion*
+*Last updated: 2026-04-09 after Phase 2 (Theme Picker) completion*
