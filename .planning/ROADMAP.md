@@ -48,7 +48,12 @@ Plans:
   3. Owner can paste a nevent reference into the picker and the referenced theme is added to the list
   4. Owner can confirm a selection and the theme is published as kind 16767 to their NIP-65 write relays
   5. ThemePicker.svelte has no singleton imports — signer, relays, and pool are received as props only
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 02-01-PLAN.md — Add parseThemeDefinition() and decodeNeventInput() to theme.ts with unit tests
+- [ ] 02-02-PLAN.md — Build ThemePicker.svelte modal (curated fetch, live preview, nevent paste, kind 16767 publish)
+- [ ] 02-03-PLAN.md — Wire ThemePicker into OwnerBadge + +page.svelte with writeRelays from kind 10002
 **UI hint**: yes
 
 ### Phase 3: Nsite Management
@@ -80,6 +85,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
-| 2. Theme Picker | 0/? | Not started | - |
+| 2. Theme Picker | 0/3 | Not started | - |
 | 3. Nsite Management | 0/? | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |
