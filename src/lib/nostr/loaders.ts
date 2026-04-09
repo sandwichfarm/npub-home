@@ -9,6 +9,7 @@ export interface NsiteEntry {
 	createdAt: number;
 	title?: string;
 	description?: string;
+	sourceEvent?: NostrEvent; // raw event for edit/delete operations
 }
 
 let activePubkey: string | undefined;
@@ -86,7 +87,8 @@ export function getNsitesFromStore(
 			nsites.push({
 				createdAt: root.created_at,
 				title: root.tags.find((t) => t[0] === 'title')?.[1],
-				description: root.tags.find((t) => t[0] === 'description')?.[1]
+				description: root.tags.find((t) => t[0] === 'description')?.[1],
+				sourceEvent: root,
 			});
 		}
 	}
@@ -103,7 +105,8 @@ export function getNsitesFromStore(
 				slug: dTag,
 				createdAt: event.created_at,
 				title: event.tags.find((t) => t[0] === 'title')?.[1],
-				description: event.tags.find((t) => t[0] === 'description')?.[1]
+				description: event.tags.find((t) => t[0] === 'description')?.[1],
+				sourceEvent: event,
 			});
 		}
 	}
