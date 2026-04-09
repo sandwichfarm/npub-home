@@ -15,11 +15,18 @@ let signerPubkey = $state<string | null>(null);
 
 // --- Derived ---
 // Guard with typeof window !== 'undefined' per RESEARCH.md Pitfall 3
-export const isOwner = $derived(
+// NOTE: Svelte 5 does not allow exporting $derived directly from .svelte.ts modules —
+// must export a getter function. Components call isOwner() as a function.
+const _isOwner = $derived(
 	signerPubkey !== null &&
 		typeof window !== 'undefined' &&
 		signerPubkey === parseNpubFromHostname(window.location.hostname)?.pubkey
 );
+
+/** Returns whether the logged-in signer pubkey matches the site's owner pubkey */
+export function isOwner(): boolean {
+	return _isOwner;
+}
 
 // --- Pool adapter helpers ---
 // TODO: verify type compat with applesauce-signers NostrSubscriptionMethod
