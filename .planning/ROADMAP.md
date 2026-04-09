@@ -54,7 +54,6 @@ Plans:
 - [x] 02-01-PLAN.md — Add parseThemeDefinition() and decodeNeventInput() to theme.ts with unit tests
 - [x] 02-02-PLAN.md — Build ThemePicker.svelte modal (curated fetch, live preview, nevent paste, kind 16767 publish)
 - [x] 02-03-PLAN.md — Wire ThemePicker into OwnerBadge + +page.svelte with writeRelays from kind 10002
-**UI hint**: yes
 
 ### Phase 3: Nsite Management
 **Goal**: Owner can edit the name and description of existing nsites and request deletion via NIP-09
@@ -65,7 +64,13 @@ Plans:
   2. Owner can edit an nsite's description inline and the change is published the same way
   3. Owner can trigger deletion of an nsite and a kind 5 NIP-09 event is published
   4. The deletion UI labels the action "Request deletion" and explains the best-effort nature before confirming
-**Plans**: TBD
+**Plans**: 3 plans
+
+Plans:
+- [ ] 03-01-PLAN.md — Extend NsiteEntry with sourceEvent field and write NsiteList test scaffold
+- [ ] 03-02-PLAN.md — Implement NsiteList.svelte edit/delete UI (EventFactory.modify + setDeleteEvents)
+- [ ] 03-03-PLAN.md — Wire NsiteList management props in +page.svelte + human verify
+
 **UI hint**: yes
 
 ### Phase 4: UI Polish
@@ -86,5 +91,5 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
 | 2. Theme Picker | 3/3 | Complete   | 2026-04-09 |
-| 3. Nsite Management | 0/? | Not started | - |
+| 3. Nsite Management | 0/3 | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |
