@@ -59,17 +59,17 @@ All sizes in pixels, matching established Tailwind class usage in existing compo
 |------|------|--------|-------------|----------------|
 | Body | 14px | 400 (normal) | 1.5 | `text-sm` |
 | Label | 12px | 400 (normal) | 1.4 | `text-xs` |
-| Section heading | 18px | 600 (semibold) | 1.2 | `text-lg font-semibold` |
+| Section heading | 16px | 600 (semibold) | 1.2 | `text-base font-semibold` |
 | Modal title | 20px | 600 (semibold) | 1.2 | `text-xl font-semibold` |
 
 Rules:
 - Body copy (theme name, descriptions): 14px / 400 / 1.5
 - Input labels, hint text, metadata: 12px / 400 / 1.4
-- Section heading "Themes": 18px / 600
+- Section heading "Themes": 16px / 600 (reduced from 18px to maintain a 4px+ gap from modal title)
 - Modal title "Pick a Theme": 20px / 600
 - No other weights or sizes introduced in this phase
 
-**Source:** Extracted from existing `LoginModal.svelte` (modal title uses `text-xl font-semibold`), `NsiteList.svelte` (list headings use `text-lg font-semibold`), body patterns use `text-sm`.
+**Source:** Extracted from existing `LoginModal.svelte` (modal title uses `text-xl font-semibold`), `NsiteList.svelte` (list headings use `text-lg font-semibold`), body patterns use `text-sm`. Section heading downgraded from `text-lg` to `text-base` per typography gap rule — 16px vs 20px provides a clear 4px separation between heading levels.
 
 ---
 
@@ -101,6 +101,18 @@ Accent is NOT used for: unselected theme cards, general hover states, loading in
 
 ---
 
+## Visual Hierarchy
+
+**Primary focal point:** The 2-column theme card grid (`grid grid-cols-2 gap-3`) is the primary visual anchor of the modal. It occupies the majority of the modal's vertical space and is the first interactive region the user's eye should land on after the modal title. All other regions (nevent input, action row) are secondary and positioned below the grid.
+
+Layout priority order within the modal:
+1. Modal title + close button (header — orientation)
+2. Theme card grid (primary focal point — selection)
+3. nevent paste input (secondary — power user escape hatch)
+4. Action row (tertiary — commit or dismiss)
+
+---
+
 ## Component Inventory
 
 Components to build or modify in this phase:
@@ -123,10 +135,10 @@ Two-panel modal structure:
 
 **Internal structure:**
 1. Header row: modal title "Pick a Theme" (`text-xl font-semibold text-foreground`) + close button (`&#x2715;`, `text-muted-foreground hover:text-foreground`)
-2. Theme grid: `grid grid-cols-2 gap-3` — 2-column grid of theme cards
+2. Theme grid: `grid grid-cols-2 gap-3` — 2-column grid of theme cards (primary focal point)
 3. Divider
 4. nevent paste input row
-5. Action row: "Apply Theme" button (primary) + "Cancel" link-button (muted)
+5. Action row: "Apply Theme" button (primary) + "Keep Current Theme" link-button (muted)
 
 ### Theme Card
 
@@ -188,9 +200,9 @@ Label: "Theme" (matching brevity of existing "Log out" link)
 | nevent input loading | "Add Theme" clicked | Button disabled + label "Fetching..." |
 | nevent error | Fetch failed | `text-destructive` error + "Retry" link below input |
 | Apply in progress | "Apply Theme" clicked | Button disabled + label "Applying..." |
-| Cancel | Cancel clicked or Escape | `clearTheme()` + reapply previously active theme; modal closes |
-| Close (X button) | X clicked | Same as Cancel |
-| Backdrop click | Click outside modal | Same as Cancel |
+| Keep Current Theme | "Keep Current Theme" clicked or Escape | `clearTheme()` + reapply previously active theme; modal closes |
+| Close (X button) | X clicked | Same as Keep Current Theme |
+| Backdrop click | Click outside modal | Same as Keep Current Theme |
 
 ---
 
@@ -201,7 +213,7 @@ Label: "Theme" (matching brevity of existing "Log out" link)
 | Modal title | Pick a Theme |
 | Open picker button (in OwnerBadge) | Theme |
 | Primary CTA | Apply Theme |
-| Cancel action | Cancel |
+| Cancel action | Keep Current Theme |
 | Close button aria-label | Close |
 | nevent input label | Add custom theme |
 | nevent input placeholder | nevent1... |
@@ -217,6 +229,8 @@ Label: "Theme" (matching brevity of existing "Log out" link)
 | Curated theme fallback name | Unnamed Theme |
 
 No destructive actions in this phase. Apply is reversible (user can reopen picker and select a different theme). No confirmation dialog required (confirmed in CONTEXT.md).
+
+"Keep Current Theme" is used instead of "Cancel" to make the revert action explicit — the label communicates what will happen (the previously active theme remains), not merely that the action is dismissed.
 
 **Source:** CONTEXT.md — "Single 'Apply Theme' button — no confirmation dialog (non-destructive, easily undone)"; "Failed nevent fetch shows inline error under paste input: 'Could not fetch theme event' with retry option".
 
