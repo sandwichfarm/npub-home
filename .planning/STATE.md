@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 01-auth-01-01-PLAN.md
-last_updated: "2026-04-09T11:24:04.856Z"
+stopped_at: Completed 01-auth-02-PLAN.md
+last_updated: "2026-04-09T11:30:08.088Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
   completed_phases: 0
   total_plans: 4
-  completed_plans: 1
+  completed_plans: 2
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 01 (auth) — EXECUTING
-Plan: 2 of 4
+Plan: 3 of 4
 Status: Ready to execute
 Last activity: 2026-04-09
 
@@ -53,6 +53,7 @@ Progress: [░░░░░░░░░░] 0%
 
 *Updated after each plan completion*
 | Phase 01-auth P01 | 5 | 3 tasks | 5 files |
+| Phase 01-auth P02 | 15 | 2 tasks | 7 files |
 
 ## Accumulated Context
 
@@ -67,6 +68,8 @@ Recent decisions affecting current work:
 - [Init]: NIP-09 deletion is advisory — UI must label it "Request deletion" with best-effort explanation
 - [Phase 01-auth]: Used resolve.alias in vitest.config.ts instead of vite-tsconfig-paths (simpler, sufficient for $lib mapping)
 - [Phase 01-auth]: vitest.config.ts is separate from vite.config.ts to avoid SvelteKit adapter conflicts in test context
+- [Phase 01-auth]: isOwner exported as getter function (not direct $derived) — Svelte 5 compiler constraint in .svelte.ts modules
+- [Phase 01-auth]: pool type mismatch handled with 'as any' casts — pool.req/publish types compatible at runtime with NostrConnectSigner options
 
 ### Pending Todos
 
@@ -81,6 +84,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T11:24:04.854Z
-Stopped at: Completed 01-auth-01-01-PLAN.md
+Last session: 2026-04-09T11:30:08.086Z
+Stopped at: Completed 01-auth-02-PLAN.md
 Resume file: None

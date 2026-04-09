@@ -33,7 +33,7 @@ Decimal phases appear between their surrounding integers in numeric order.
 
 Plans:
 - [x] 01-01-PLAN.md — Install deps (applesauce-signers, lean-qr) and stand up vitest test infrastructure
-- [ ] 01-02-PLAN.md — Implement auth.svelte.ts reactive singleton (NIP-07, NIP-46 bunker, owner detection, session, logout)
+- [x] 01-02-PLAN.md — Implement auth.svelte.ts reactive singleton (NIP-07, NIP-46 bunker, owner detection, session, logout)
 - [ ] 01-03-PLAN.md — Build LoginModal, ExtensionTab, RemoteSignerTab (QR canvas + relay live-update)
 - [ ] 01-04-PLAN.md — Wire auth into +page.svelte: restoreSession, LoginModal, OwnerBadge, footer Login/Logout
 **UI hint**: yes
@@ -79,7 +79,7 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Auth | 1/4 | In Progress|  |
+| 1. Auth | 2/4 | In Progress|  |
 | 2. Theme Picker | 0/? | Not started | - |
 | 3. Nsite Management | 0/? | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |
