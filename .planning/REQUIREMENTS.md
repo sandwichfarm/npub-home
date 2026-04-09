@@ -17,12 +17,12 @@
 
 ### Theme Management
 
-- [ ] **THEME-01**: Owner can open a theme picker modal dialog
+- [x] **THEME-01**: Owner can open a theme picker modal dialog
 - [x] **THEME-02**: Theme picker displays a list of curated kind 36767 themes
 - [x] **THEME-03**: Owner can paste nevent references to add custom themes to the picker list
-- [ ] **THEME-04**: Owner can preview a theme before applying (live preview using existing applyTheme infrastructure)
-- [ ] **THEME-05**: Owner can publish a selected theme as their active profile theme (kind 16767)
-- [ ] **THEME-06**: Theme picker is built as a well-separated component (receives signer as prop, no app singleton imports) suitable for future extraction as standalone package
+- [x] **THEME-04**: Owner can preview a theme before applying (live preview using existing applyTheme infrastructure)
+- [x] **THEME-05**: Owner can publish a selected theme as their active profile theme (kind 16767)
+- [x] **THEME-06**: Theme picker is built as a well-separated component (receives signer as prop, no app singleton imports) suitable for future extraction as standalone package
 
 ### Nsite Management
 
@@ -76,12 +76,12 @@
 | AUTH-05 | Phase 1 | Complete |
 | AUTH-06 | Phase 1 | Complete |
 | AUTH-07 | Phase 1 | Complete |
-| THEME-01 | Phase 2 | Pending |
+| THEME-01 | Phase 2 | Complete |
 | THEME-02 | Phase 2 | Complete |
 | THEME-03 | Phase 2 | Complete |
-| THEME-04 | Phase 2 | Pending |
-| THEME-05 | Phase 2 | Pending |
-| THEME-06 | Phase 2 | Pending |
+| THEME-04 | Phase 2 | Complete |
+| THEME-05 | Phase 2 | Complete |
+| THEME-06 | Phase 2 | Complete |
 | NSITE-01 | Phase 3 | Pending |
 | NSITE-02 | Phase 3 | Pending |
 | NSITE-03 | Phase 3 | Pending |

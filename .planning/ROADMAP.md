@@ -13,7 +13,7 @@ npub-home adds an owner management layer on top of an existing public Nostr prof
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Auth** - Working login (NIP-07 + NIP-46), owner detection, and persistent session (completed 2026-04-09)
-- [ ] **Phase 2: Theme Picker** - Owner can browse, preview, and publish themes via an isolated modal component
+- [x] **Phase 2: Theme Picker** - Owner can browse, preview, and publish themes via an isolated modal component (completed 2026-04-09)
 - [ ] **Phase 3: Nsite Management** - Owner can edit nsite name/description and request deletion via NIP-09
 - [ ] **Phase 4: UI Polish** - GitHub footer link and default background color fix
 
@@ -53,7 +53,7 @@ Plans:
 Plans:
 - [x] 02-01-PLAN.md — Add parseThemeDefinition() and decodeNeventInput() to theme.ts with unit tests
 - [x] 02-02-PLAN.md — Build ThemePicker.svelte modal (curated fetch, live preview, nevent paste, kind 16767 publish)
-- [ ] 02-03-PLAN.md — Wire ThemePicker into OwnerBadge + +page.svelte with writeRelays from kind 10002
+- [x] 02-03-PLAN.md — Wire ThemePicker into OwnerBadge + +page.svelte with writeRelays from kind 10002
 **UI hint**: yes
 
 ### Phase 3: Nsite Management
@@ -85,6 +85,6 @@ Phases execute in numeric order: 1 → 2 → 3 → 4
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Auth | 4/4 | Complete   | 2026-04-09 |
-| 2. Theme Picker | 2/3 | In Progress|  |
+| 2. Theme Picker | 3/3 | Complete   | 2026-04-09 |
 | 3. Nsite Management | 0/? | Not started | - |
 | 4. UI Polish | 0/? | Not started | - |

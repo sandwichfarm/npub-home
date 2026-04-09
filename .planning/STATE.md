@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: executing
-stopped_at: Completed 02-theme-picker-02-PLAN.md
-last_updated: "2026-04-09T12:26:56.158Z"
+status: verifying
+stopped_at: Completed 02-theme-picker-03-PLAN.md
+last_updated: "2026-04-09T12:30:37.275Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
-  completed_phases: 1
+  completed_phases: 2
   total_plans: 7
-  completed_plans: 6
+  completed_plans: 7
   percent: 0
 ---
 
@@ -27,7 +27,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 
 Phase: 02 (theme-picker) — EXECUTING
 Plan: 3 of 3
-Status: Ready to execute
+Status: Phase complete — ready for verification
 Last activity: 2026-04-09
 
 Progress: [░░░░░░░░░░] 0%
@@ -58,6 +58,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-auth P04 | 2 | 2 tasks | 2 files |
 | Phase 02-theme-picker P01 | 10 | 1 tasks | 2 files |
 | Phase 02-theme-picker P02 | 11 | 2 tasks | 3 files |
+| Phase 02-theme-picker P03 | 5 | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -83,6 +84,8 @@ Recent decisions affecting current work:
 - [Phase 02-theme-picker]: naddr curated refs decoded via dynamic nip19 import inside synchronous onMount — avoids async onMount cleanup conflict
 - [Phase 02-theme-picker]: vitest.config.ts: resolve.conditions=['browser'] required for Svelte 5 component tests in jsdom — prevents server bundle loading
 - [Phase 02-theme-picker]: Source event c/f/bg tags copied directly to kind 16767 — avoids hex/HSL round-trip pitfall
+- [Phase 02-theme-picker]: writeRelays computed via getOutboxes() on kind 10002 subscription; falls back to BOOTSTRAP_RELAYS when unavailable
+- [Phase 02-theme-picker]: ThemePicker getSigner()! non-null assertion is safe — showThemePicker is only set true inside isOwner() guard
 
 ### Pending Todos
 
@@ -97,6 +100,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T12:26:56.155Z
-Stopped at: Completed 02-theme-picker-02-PLAN.md
+Last session: 2026-04-09T12:30:37.272Z
+Stopped at: Completed 02-theme-picker-03-PLAN.md
 Resume file: None
