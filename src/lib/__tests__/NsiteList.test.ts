@@ -365,7 +365,7 @@ describe('NsiteList — NSITE-03/04: delete confirmation and NIP-09 publish', ()
 			expect(mockBuild).toHaveBeenCalled();
 		}, { timeout: 2000 });
 
-		expect(mockSetDeleteEvents).toHaveBeenCalledWith(nsiteEntry.sourceEvent);
+		expect(mockSetDeleteEvents).toHaveBeenCalledWith([nsiteEntry.sourceEvent]);
 		expect(pool.publish).toHaveBeenCalled();
 	});
 
