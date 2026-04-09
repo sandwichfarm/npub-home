@@ -3,14 +3,14 @@ gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
 status: executing
-stopped_at: Completed 02-theme-picker-01-PLAN.md
-last_updated: "2026-04-09T12:13:38.821Z"
+stopped_at: Completed 02-theme-picker-02-PLAN.md
+last_updated: "2026-04-09T12:26:56.158Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
   completed_phases: 1
   total_plans: 7
-  completed_plans: 5
+  completed_plans: 6
   percent: 0
 ---
 
@@ -26,7 +26,7 @@ See: .planning/PROJECT.md (updated 2026-04-09)
 ## Current Position
 
 Phase: 02 (theme-picker) — EXECUTING
-Plan: 2 of 3
+Plan: 3 of 3
 Status: Ready to execute
 Last activity: 2026-04-09
 
@@ -57,6 +57,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 01-auth P03 | 3 | 2 tasks | 4 files |
 | Phase 01-auth P04 | 2 | 2 tasks | 2 files |
 | Phase 02-theme-picker P01 | 10 | 1 tasks | 2 files |
+| Phase 02-theme-picker P02 | 11 | 2 tasks | 3 files |
 
 ## Accumulated Context
 
@@ -79,6 +80,9 @@ Recent decisions affecting current work:
 - [Phase 02-theme-picker]: nip19 imported as named export alongside type-only NostrEvent import in theme.ts
 - [Phase 02-theme-picker]: Font family sanitization in parseThemeDefinition rejects entire font object (sets undefined) when family fails /^[A-Za-z0-9 _-]+$/ — prevents partial CSS injection
 - [Phase 02-theme-picker]: naddr type in decodeNeventInput: id set to empty string, relays passed through — caller resolves by kind+pubkey+d-tag
+- [Phase 02-theme-picker]: naddr curated refs decoded via dynamic nip19 import inside synchronous onMount — avoids async onMount cleanup conflict
+- [Phase 02-theme-picker]: vitest.config.ts: resolve.conditions=['browser'] required for Svelte 5 component tests in jsdom — prevents server bundle loading
+- [Phase 02-theme-picker]: Source event c/f/bg tags copied directly to kind 16767 — avoids hex/HSL round-trip pitfall
 
 ### Pending Todos
 
@@ -93,6 +97,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T12:13:38.819Z
-Stopped at: Completed 02-theme-picker-01-PLAN.md
+Last session: 2026-04-09T12:26:56.155Z
+Stopped at: Completed 02-theme-picker-02-PLAN.md
 Resume file: None
