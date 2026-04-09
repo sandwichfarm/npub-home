@@ -23,8 +23,8 @@ Show a Nostr user's nsites in one place, styled with their profile theme, with z
 
 ### Active
 
-- [ ] GitHub repo link in footer
-- [ ] Fix default background color (white → match container background when no Ditto theme is set)
+- [x] GitHub repo link in footer — Phase 4
+- [x] Fix default background color (white → match container background when no Ditto theme is set) — Phase 4
 - [x] Login system supporting NIP-07 (browser extension) and NIP-46 (remote signer with bunker URI, nostrconnect:// QR code, editable relay field) — Phase 1
 - [x] Owner detection: logged-in pubkey === site npub unlocks management features — Phase 1
 - [x] Theme picker modal: select from curated kind 36767 themes + paste/add nevent references, preview, and publish as kind 16767 — Phase 2
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-09 after Phase 3 (Nsite Management) completion*
+*Last updated: 2026-04-09 after Phase 4 (UI Polish) completion — all phases complete*
