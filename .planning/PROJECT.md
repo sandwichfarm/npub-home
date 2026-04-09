@@ -29,8 +29,8 @@ Show a Nostr user's nsites in one place, styled with their profile theme, with z
 - [x] Owner detection: logged-in pubkey === site npub unlocks management features — Phase 1
 - [x] Theme picker modal: select from curated kind 36767 themes + paste/add nevent references, preview, and publish as kind 16767 — Phase 2
 - [x] Theme picker built as a well-separated component (extractable for future standalone publication) — Phase 2
-- [ ] Nsite management: edit name/description of existing nsites (publish updated kind 35128/15128 events)
-- [ ] Nsite management: delete nsites via NIP-09 deletion events
+- [x] Nsite management: edit name/description of existing nsites (publish updated kind 35128/15128 events) — Phase 3
+- [x] Nsite management: delete nsites via NIP-09 deletion events — Phase 3
 
 ### Out of Scope
 
@@ -83,4 +83,4 @@ This document evolves at phase transitions and milestone boundaries.
 4. Update Context with current state
 
 ---
-*Last updated: 2026-04-09 after Phase 2 (Theme Picker) completion*
+*Last updated: 2026-04-09 after Phase 3 (Nsite Management) completion*
