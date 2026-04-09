@@ -129,7 +129,7 @@
 			const { setDeleteEvents } = await import('applesauce-core/operations/delete');
 			const template = await factory.build(
 				{ kind: 5, content: '' },
-				setDeleteEvents(nsite.sourceEvent)
+				setDeleteEvents([nsite.sourceEvent!])
 			);
 			const signed = await factory.sign(template);
 			const targets = writeRelays.length > 0 ? writeRelays : BOOTSTRAP_RELAYS;

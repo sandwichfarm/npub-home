@@ -113,7 +113,7 @@
 	<title>{profile?.display_name || profile?.name || 'nsite'}</title>
 </svelte:head>
 
-<div class="min-h-screen text-foreground">
+<div class="min-h-screen bg-background text-foreground">
 	<div class="mx-auto max-w-2xl py-8">
 		{#if showLoginModal}
 			<LoginModal onClose={() => (showLoginModal = false)} />
@@ -147,6 +147,12 @@
 			</div>
 			<div class="mt-6 flex items-center justify-center gap-4">
 				<nsite-deploy label="Steal this nsite"></nsite-deploy>
+				<a
+					href="https://github.com/sandwichfarm/npub-home"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="text-sm text-muted-foreground hover:text-foreground"
+				>GitHub</a>
 				{#if isOwner()}
 					<span class="flex items-center gap-1">
 						<button
