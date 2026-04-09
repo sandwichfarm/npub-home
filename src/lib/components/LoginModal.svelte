@@ -26,7 +26,9 @@
 		role="dialog"
 		aria-modal="true"
 		aria-label="Log In"
+		tabindex="-1"
 		onclick={(e) => e.stopPropagation()}
+		onkeydown={(e) => e.key === 'Escape' && onClose()}
 	>
 		<div class="mb-4 flex items-center justify-between">
 			<h2 class="text-xl font-semibold text-foreground">Log In</h2>
