@@ -19,6 +19,7 @@ export interface NsiteEntry {
 	title?: string;
 	description?: string;
 	versions: NsiteVersion[];
+	sourceEvent?: NostrEvent;
 }
 
 let activePubkey: string | undefined;
@@ -168,7 +169,8 @@ export function getNsitesFromStore(
 				createdAt: root.created_at,
 				title: root.tags.find((t) => t[0] === 'title')?.[1],
 				description: root.tags.find((t) => t[0] === 'description')?.[1],
-				versions: versionsByRef.get(ref ?? siteRef(15128, pubkey)) ?? []
+				versions: versionsByRef.get(ref ?? siteRef(15128, pubkey)) ?? [],
+				sourceEvent: root
 			});
 		}
 	}
@@ -189,7 +191,8 @@ export function getNsitesFromStore(
 				createdAt: event.created_at,
 				title: event.tags.find((t) => t[0] === 'title')?.[1],
 				description: event.tags.find((t) => t[0] === 'description')?.[1],
-				versions: versionsByRef.get(ref ?? siteRef(35128, pubkey, dTag)) ?? []
+				versions: versionsByRef.get(ref ?? siteRef(35128, pubkey, dTag)) ?? [],
+				sourceEvent: event
 			});
 		}
 	}
