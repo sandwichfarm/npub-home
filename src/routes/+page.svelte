@@ -8,9 +8,13 @@
 	import ProfileCard from '$lib/components/ProfileCard.svelte';
 	import NsiteList from '$lib/components/NsiteList.svelte';
 	import ErrorMessage from '$lib/components/ErrorMessage.svelte';
-	import { restoreSession, logout, isOwner } from '$lib/auth.svelte';
+	import { restoreSession, logout, isOwner, getSigner } from '$lib/auth.svelte';
 	import LoginModal from '$lib/components/LoginModal.svelte';
 	import OwnerBadge from '$lib/components/OwnerBadge.svelte';
+	import ThemePicker from '$lib/components/ThemePicker.svelte';
+	import { getOutboxes } from 'applesauce-core/helpers/mailboxes';
+	import { pool } from '$lib/nostr/store';
+	import { BOOTSTRAP_RELAYS } from '$lib/nostr/bootstrap';
 
 	let error = $state<string | null>(null);
 	let profile = $state<ProfileContent | undefined>(undefined);
@@ -19,6 +23,8 @@
 	let host = $state('');
 	let pubkey = $state('');
 	let showLoginModal = $state(false);
+	let showThemePicker = $state(false);
+	let writeRelays = $state<string[]>([]);
 
 	onMount(() => {
 		import('@nsite/stealthis');
@@ -78,11 +84,21 @@
 					}
 				});
 
+			// Reactively read kind 10002 relay list to compute writeRelays for ThemePicker
+			const relaysSub = eventStore
+				.filters({ kinds: [10002], authors: [parsed.pubkey] })
+				.subscribe((event) => {
+					if (!event) return;
+					const relays = getOutboxes(event);
+					writeRelays = relays.length > 0 ? relays : BOOTSTRAP_RELAYS;
+				});
+
 			cleanupFns = [
 				unsubscribe,
 				() => profileSub.unsubscribe(),
 				() => nsiteSub.unsubscribe(),
 				() => themeSub.unsubscribe(),
+				() => relaysSub.unsubscribe(),
 				clearTheme,
 			];
 		});
@@ -102,12 +118,21 @@
 		{#if showLoginModal}
 			<LoginModal onClose={() => (showLoginModal = false)} />
 		{/if}
+		{#if showThemePicker}
+			<ThemePicker
+				signer={getSigner()!}
+				{pool}
+				{pubkey}
+				{writeRelays}
+				onclose={() => (showThemePicker = false)}
+			/>
+		{/if}
 		{#if error && !profile}
 			<ErrorMessage message={error} />
 		{:else}
 			<div class="overflow-hidden rounded-xl border border-border bg-background">
 				{#if isOwner()}
-					<OwnerBadge />
+					<OwnerBadge ontheme={() => (showThemePicker = true)} />
 				{/if}
 				<ProfileCard {profile} {npub} />
 				<NsiteList {nsites} {host} {pubkey} />

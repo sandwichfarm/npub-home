@@ -1,9 +1,15 @@
 <script lang="ts">
 	import { logout } from '$lib/auth.svelte';
+
+	let { ontheme }: { ontheme?: () => void } = $props();
 </script>
 
 <div class="flex items-center gap-2 px-4 py-2 text-sm font-semibold text-primary">
 	Logged in as owner
+	<button
+		class="text-xs font-normal text-muted-foreground underline hover:text-foreground"
+		onclick={() => ontheme?.()}
+	>Theme</button>
 	<button
 		class="text-xs font-normal text-muted-foreground underline hover:text-foreground"
 		onclick={logout}
