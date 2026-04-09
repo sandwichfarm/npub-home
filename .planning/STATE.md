@@ -2,15 +2,15 @@
 gsd_state_version: 1.0
 milestone: v1.0
 milestone_name: milestone
-status: verifying
-stopped_at: Completed 02-theme-picker-03-PLAN.md
-last_updated: "2026-04-09T12:33:42.444Z"
+status: executing
+stopped_at: Completed 03-nsite-management-01-PLAN.md
+last_updated: "2026-04-09T12:51:58.864Z"
 last_activity: 2026-04-09
 progress:
   total_phases: 4
   completed_phases: 2
-  total_plans: 7
-  completed_plans: 7
+  total_plans: 10
+  completed_plans: 8
   percent: 0
 ---
 
@@ -21,13 +21,13 @@ progress:
 See: .planning/PROJECT.md (updated 2026-04-09)
 
 **Core value:** Show a Nostr user's nsites in one place, styled with their profile theme, with zero configuration for visitors.
-**Current focus:** Phase 02 — theme-picker
+**Current focus:** Phase 03 — nsite-management
 
 ## Current Position
 
-Phase: 3
-Plan: Not started
-Status: Phase complete — ready for verification
+Phase: 03 (nsite-management) — EXECUTING
+Plan: 2 of 3
+Status: Ready to execute
 Last activity: 2026-04-09
 
 Progress: [░░░░░░░░░░] 0%
@@ -59,6 +59,7 @@ Progress: [░░░░░░░░░░] 0%
 | Phase 02-theme-picker P01 | 10 | 1 tasks | 2 files |
 | Phase 02-theme-picker P02 | 11 | 2 tasks | 3 files |
 | Phase 02-theme-picker P03 | 5 | 2 tasks | 2 files |
+| Phase 03-nsite-management P01 | 117s | 2 tasks | 2 files |
 
 ## Accumulated Context
 
@@ -86,6 +87,8 @@ Recent decisions affecting current work:
 - [Phase 02-theme-picker]: Source event c/f/bg tags copied directly to kind 16767 — avoids hex/HSL round-trip pitfall
 - [Phase 02-theme-picker]: writeRelays computed via getOutboxes() on kind 10002 subscription; falls back to BOOTSTRAP_RELAYS when unavailable
 - [Phase 02-theme-picker]: ThemePicker getSigner()! non-null assertion is safe — showThemePicker is only set true inside isOwner() guard
+- [Phase 03-nsite-management]: sourceEvent on NsiteEntry is optional (sourceEvent?: NostrEvent) to preserve backward compatibility with existing call sites
+- [Phase 03-nsite-management]: NsiteList Wave 0 tests use same MockEventFactory constructor pattern as ThemePicker.test.ts for consistency
 
 ### Pending Todos
 
@@ -100,6 +103,6 @@ None yet.
 
 ## Session Continuity
 
-Last session: 2026-04-09T12:30:37.272Z
-Stopped at: Completed 02-theme-picker-03-PLAN.md
+Last session: 2026-04-09T12:51:58.862Z
+Stopped at: Completed 03-nsite-management-01-PLAN.md
 Resume file: None

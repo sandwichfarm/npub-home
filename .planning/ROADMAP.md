@@ -67,7 +67,7 @@ Plans:
 **Plans**: 3 plans
 
 Plans:
-- [ ] 03-01-PLAN.md — Extend NsiteEntry with sourceEvent field and write NsiteList test scaffold
+- [x] 03-01-PLAN.md — Extend NsiteEntry with sourceEvent field and write NsiteList test scaffold
 - [ ] 03-02-PLAN.md — Implement NsiteList.svelte edit/delete UI (EventFactory.modify + setDeleteEvents)
 - [ ] 03-03-PLAN.md — Wire NsiteList management props in +page.svelte + human verify
 

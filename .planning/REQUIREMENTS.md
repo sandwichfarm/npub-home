@@ -26,10 +26,10 @@
 
 ### Nsite Management
 
-- [ ] **NSITE-01**: Owner can edit the name of an existing nsite (republish kind 35128 or 15128 event with updated metadata)
-- [ ] **NSITE-02**: Owner can edit the description of an existing nsite (republish kind 35128 or 15128 event with updated metadata)
-- [ ] **NSITE-03**: Owner can request deletion of an nsite via NIP-09 (kind 5 deletion event)
-- [ ] **NSITE-04**: Deletion UI clearly communicates that deletion is best-effort/advisory
+- [x] **NSITE-01**: Owner can edit the name of an existing nsite (republish kind 35128 or 15128 event with updated metadata)
+- [x] **NSITE-02**: Owner can edit the description of an existing nsite (republish kind 35128 or 15128 event with updated metadata)
+- [x] **NSITE-03**: Owner can request deletion of an nsite via NIP-09 (kind 5 deletion event)
+- [x] **NSITE-04**: Deletion UI clearly communicates that deletion is best-effort/advisory
 
 ### UI Polish
 
@@ -82,10 +82,10 @@
 | THEME-04 | Phase 2 | Complete |
 | THEME-05 | Phase 2 | Complete |
 | THEME-06 | Phase 2 | Complete |
-| NSITE-01 | Phase 3 | Pending |
-| NSITE-02 | Phase 3 | Pending |
-| NSITE-03 | Phase 3 | Pending |
-| NSITE-04 | Phase 3 | Pending |
+| NSITE-01 | Phase 3 | Complete |
+| NSITE-02 | Phase 3 | Complete |
+| NSITE-03 | Phase 3 | Complete |
+| NSITE-04 | Phase 3 | Complete |
 | UI-01 | Phase 4 | Pending |
 | UI-02 | Phase 4 | Pending |
 
